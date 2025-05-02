@@ -59,6 +59,7 @@ const CitiesAdminPage = () => {
               <tr>
                 <th className="px-4 py-2">ID</th>
                 <th className="px-4 py-2">Название</th>
+                <th className="px-4 py-2">Страна</th>
                 <th className="px-4 py-2">Действия</th>
               </tr>
             </thead>
@@ -67,6 +68,7 @@ const CitiesAdminPage = () => {
                 <tr key={city.id}>
                   <td className="border px-4 py-2">{city.id}</td>
                   <td className="border px-4 py-2">{city.name}</td>
+                  <td className="border px-4 py-2">{city.country?.name}</td>
                   <td className="border px-4 py-2">
                     <button
                       onClick={() => handleEdit(city.id)}
