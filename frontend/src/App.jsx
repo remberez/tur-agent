@@ -14,6 +14,8 @@ import HotelsAdminPage from './components/HotelsAdmiPage';
 import HotelForm from './components/HotelsForm';
 import CountryForm from './components/CountryAdminForm';
 import CityForm from './components/CityAdminForm';
+import TourTypeList from './components/TourTypeList';
+import TourTypeForm from './components/TourTypeForm';
 
 const App = observer(() => {
   useEffect(() => {
@@ -47,6 +49,10 @@ const App = observer(() => {
             <Route path="hotels" element={<HotelsAdminPage/>}/>
             <Route path="hotels/add" element={<HotelForm/>}/>
             <Route path="hotels/edit/:id" element={<HotelForm/>}/>
+
+            <Route path="tour-types" element={<TourTypeList />} />
+            <Route path="tour-types/add" element={<TourTypeForm />} />
+            <Route path="tour-types/edit/:id" element={<TourTypeForm />} />
           </Route>
         </Route>
       </Routes>
