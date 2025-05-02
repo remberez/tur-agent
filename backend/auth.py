@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import joinedload
 
 from models import Client, get_db
 
@@ -79,7 +80,7 @@ async def get_current_client(token: str = Depends(oauth2_scheme), db: AsyncSessi
     except (JWTError, ValueError, TypeError):
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    result = await db.execute(select(Client).where(Client.id == user_id))
+    result = await db.execute(select(Client).where(Client.id == user_id).options(joinedload(Client.employee)))
     client = result.scalar_one_or_none()
 
     if not client:

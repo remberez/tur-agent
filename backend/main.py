@@ -1,11 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
 
 from auth import router as auth_router
+from employee import router as employee_router
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 app.include_router(prefix="/api", router=auth_router)
+app.include_router(prefix="/api", router=employee_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins="http://localhost:5173",
