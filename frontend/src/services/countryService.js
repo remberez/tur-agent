@@ -20,4 +20,9 @@ export const countryService = {
     const response = await api.delete(`/countries/${countryId}`);
     return response.data;
   },
+
+  async getCountry(countryId) {
+    const response = await api.get(`/countries/${countryId}`);
+    return response.data;
+  }
 };

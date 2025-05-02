@@ -35,6 +35,7 @@ const App = observer(() => {
 
             <Route path="countries" element={<CountriesAdminPage />} />
             <Route path="countries/add" element={<CountryForm/>}/>
+            <Route path="countries/edit/:id" element={<CountryForm/>}/>
 
             <Route path="employees" element={<EmployeesPage />} />
             <Route path="employees/add" element={<EmployeeForm />} />
