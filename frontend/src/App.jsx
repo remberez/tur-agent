@@ -13,6 +13,7 @@ import EmployeeForm from './components/EmployeeAdminForm';
 import HotelsAdminPage from './components/HotelsAdmiPage';
 import HotelForm from './components/CountriesAdminFormPage';
 import CountryForm from './components/CountryAdminForm';
+import CityForm from './components/CityAdminForm';
 
 const App = observer(() => {
   useEffect(() => {
@@ -32,6 +33,8 @@ const App = observer(() => {
           <Route path="/admin" element={<AdminPage />}>
 
             <Route path="cities" element={<CitiesAdminPage/>} />
+            <Route path="cities/add" element={<CityForm/>} />
+            <Route path="cities/edit/:id" element={<CityForm/>}/>
 
             <Route path="countries" element={<CountriesAdminPage />} />
             <Route path="countries/add" element={<CountryForm/>}/>

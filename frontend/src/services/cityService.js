@@ -20,5 +20,10 @@ export const cityService = {
       const response = await api.delete(`/cities/${cityId}`);
       return response.data;
     },
+
+    async getCity(cityId) {
+      const response = await api.get(`/cities/${cityId}`);
+      return response.data;
+    }
 };
   
