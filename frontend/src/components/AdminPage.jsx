@@ -13,6 +13,9 @@ const Sidebar = () => {
         <li>
           <Link to="/admin/countries" className="block p-2 hover:bg-gray-700">Страны</Link>
         </li>
+        <li>
+          <Link to="/admin/employees" className="block p-2 hover:bg-gray-700">Сотрудники</Link>
+        </li>
       </ul>
     </div>
   );
