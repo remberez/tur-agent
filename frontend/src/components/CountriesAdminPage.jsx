@@ -37,7 +37,7 @@ const CountriesAdminPage = () => {
   };
 
   const handleAdd = () => {
-    navigate("/admin/hotels/add");
+    navigate("/admin/countries/add");
   }
 
   return (

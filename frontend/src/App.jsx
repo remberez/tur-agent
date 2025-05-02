@@ -11,7 +11,7 @@ import CountriesAdminPage from './components/CountriesAdminPage';
 import EmployeesPage from './components/EmployeeAdminPage';
 import EmployeeForm from './components/EmployeeAdminForm';
 import HotelsAdminPage from './components/HotelsAdmiPage';
-import HotelForm from './components/CountriesAdminFormPage';
+import HotelForm from './components/HotelsForm';
 import CountryForm from './components/CountryAdminForm';
 import CityForm from './components/CityAdminForm';
 
@@ -46,6 +46,7 @@ const App = observer(() => {
 
             <Route path="hotels" element={<HotelsAdminPage/>}/>
             <Route path="hotels/add" element={<HotelForm/>}/>
+            <Route path="hotels/edit/:id" element={<HotelForm/>}/>
           </Route>
         </Route>
       </Routes>
