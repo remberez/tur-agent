@@ -36,9 +36,19 @@ const CountriesAdminPage = () => {
     navigate(`/admin/countries/edit/${id}`); // Перенаправляем на страницу редактирования
   };
 
+  const handleAdd = () => {
+    navigate("/admin/hotels/add");
+  }
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Страны</h2>
+      <button
+        onClick={handleAdd}
+        className="mb-4 bg-blue-600 text-white px-4 py-2 rounded-md"
+      >
+        Добавить страну
+      </button>
       {error && <p className="text-red-500">{error}</p>}
       {loading ? (
         <p>Загрузка...</p>

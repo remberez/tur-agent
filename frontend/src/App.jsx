@@ -11,6 +11,8 @@ import CountriesAdminPage from './components/CountriesAdminPage';
 import EmployeesPage from './components/EmployeeAdminPage';
 import EmployeeForm from './components/EmployeeAdminForm';
 import HotelsAdminPage from './components/HotelsAdmiPage';
+import HotelForm from './components/CountriesAdminFormPage';
+import CountryForm from './components/CountryAdminForm';
 
 const App = observer(() => {
   useEffect(() => {
@@ -28,12 +30,18 @@ const App = observer(() => {
           <Route path="profile" element={<div>Профиль</div>} />
           <Route index element={<MainPage/>} />
           <Route path="/admin" element={<AdminPage />}>
+
             <Route path="cities" element={<CitiesAdminPage/>} />
+
             <Route path="countries" element={<CountriesAdminPage />} />
+            <Route path="countries/add" element={<CountryForm/>}/>
+
             <Route path="employees" element={<EmployeesPage />} />
             <Route path="employees/add" element={<EmployeeForm />} />
             <Route path="employees/edit/:id" element={<EmployeeForm />} />
+
             <Route path="hotels" element={<HotelsAdminPage/>}/>
+            <Route path="hotels/add" element={<HotelForm/>}/>
           </Route>
         </Route>
       </Routes>
