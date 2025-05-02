@@ -4,6 +4,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from typing import List
 
+from sqlalchemy.orm import selectinload
+
+from country import CountryOut
 from models import City, get_db
 from permissions import staff_required
 
@@ -19,6 +22,7 @@ class CityUpdate(CityBase):
 
 class CityOut(CityBase):
     id: int
+    country: CountryOut
 
     class Config:
         orm_mode = True
@@ -27,12 +31,12 @@ router = APIRouter(prefix="/cities", tags=["Города"])
 
 @router.get("/", response_model=List[CityOut])
 async def get_cities(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(City))
+    result = await db.execute(select(City).options(selectinload(City.country)))
     return result.scalars().all()
 
 @router.get("/{city_id}", response_model=CityOut)
 async def get_city(city_id: int, db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(City).where(City.id == city_id))
+    result = await db.execute(select(City).where(City.id == city_id).options(selectinload(City.country)))
     city = result.scalar_one_or_none()
     if not city:
         raise HTTPException(status_code=404, detail="Город не найден")
