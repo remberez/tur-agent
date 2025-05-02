@@ -1,16 +1,28 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import LoginPage from './components/LoginPage';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import { userStore } from './stores/userStore';
 
-function App() {
+const App = observer(() => {
+  useEffect(() => {
+    userStore.init();
+  }, []);
+
+  if (userStore.isLoading) {
+    return <div className="text-center mt-10">Загрузка...</div>;
+  }
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<div>Добро пожаловать!</div>} />
-        <Route path="login" element={<div>Страница входа</div>} />
-        <Route path="profile" element={<div>Личный кабинет</div>} />
-      </Route>
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="profile" element={<div>Профиль</div>} />
+          <Route index element={<div>Главная</div>} />
+        </Route>
+      </Routes>
   );
-}
+});
 
 export default App;
