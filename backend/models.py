@@ -1,10 +1,10 @@
+import enum
 from datetime import datetime
+from typing import List
 
 from sqlalchemy import String, Integer, ForeignKey, Date, Float, Text, Enum
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-import enum
-from typing import List
 
 db_url = "postgresql+asyncpg://user:password@localhost:5433/main"
 
@@ -41,15 +41,17 @@ class Client(Base):
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     bookings: Mapped[List["Booking"]] = relationship(back_populates="client")
+    employee: Mapped["Employee"] = relationship(back_populates="user", uselist=False)
 
 class Employee(Base):
     __tablename__ = "employees"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    full_name: Mapped[str] = mapped_column(String, nullable=False)
     position: Mapped[EmployeePositionEnum] = mapped_column(Enum(EmployeePositionEnum))
+    user_id: Mapped[int] = mapped_column(ForeignKey("clients.id", ondelete="CASCADE"), nullable=True, unique=True)
 
     bookings: Mapped[List["Booking"]] = relationship(back_populates="employee")
+    user: Mapped["Client"] = relationship(back_populates="employee")
 
 class Country(Base):
     __tablename__ = "countries"
