@@ -4,6 +4,10 @@ import LoginPage from './components/LoginPage';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { userStore } from './stores/userStore';
+import MainPage from './components/MainPage';
+import AdminPage from './components/AdminPage';
+import CitiesAdminPage from './components/CityAdminPage';
+import CountriesAdminPage from './components/CountriesAdminPage';
 
 const App = observer(() => {
   useEffect(() => {
@@ -19,7 +23,11 @@ const App = observer(() => {
         <Route path="/" element={<Layout />}>
           <Route path="login" element={<LoginPage />} />
           <Route path="profile" element={<div>Профиль</div>} />
-          <Route index element={<div>Главная</div>} />
+          <Route index element={<MainPage/>} />
+          <Route path="/admin" element={<AdminPage />}>
+            <Route path="cities" element={<CitiesAdminPage/>} />
+            <Route path="countries" element={<CountriesAdminPage />} />
+          </Route>
         </Route>
       </Routes>
   );
