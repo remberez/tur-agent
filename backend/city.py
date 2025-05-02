@@ -27,6 +27,12 @@ class CityOut(CityBase):
     class Config:
         orm_mode = True
 
+class CityShortOut(CityBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
 router = APIRouter(prefix="/cities", tags=["Города"])
 
 @router.get("/", response_model=List[CityOut])
@@ -42,7 +48,7 @@ async def get_city(city_id: int, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Город не найден")
     return city
 
-@router.post("/", response_model=CityOut)
+@router.post("/", response_model=CityShortOut)
 async def create_city(
     city: CityCreate,
     db: AsyncSession = Depends(get_db),
@@ -54,7 +60,7 @@ async def create_city(
     await db.refresh(new_city)
     return new_city
 
-@router.put("/{city_id}", response_model=CityOut)
+@router.put("/{city_id}", response_model=CityShortOut)
 async def update_city(
     city_id: int,
     updated: CityUpdate,

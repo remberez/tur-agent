@@ -9,7 +9,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 db_url = "postgresql+asyncpg://user:password@localhost:5433/main"
 
 
-engine = create_async_engine(db_url, echo=True)
+engine = create_async_engine(db_url, echo=False)
 SessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
 async def get_db():
