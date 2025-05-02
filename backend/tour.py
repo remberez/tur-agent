@@ -63,6 +63,10 @@ class TourOut(TourBase):
         orm_mode = True
 
 
+class TourShortOut(TourBase):
+    id: int
+
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -99,7 +103,7 @@ async def get_tour(tour_id: int, db: AsyncSession = Depends(get_db)):
     return tour
 
 
-@router.post("/", response_model=TourOut)
+@router.post("/", response_model=TourShortOut)
 async def create_tour(
         tour: TourCreate,
         db: AsyncSession = Depends(get_db),
@@ -112,7 +116,7 @@ async def create_tour(
     return new_tour
 
 
-@router.put("/{tour_id}", response_model=TourOut)
+@router.put("/{tour_id}", response_model=TourShortOut)
 async def update_tour(
         tour_id: int,
         updated: TourUpdate,
