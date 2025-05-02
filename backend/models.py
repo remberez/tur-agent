@@ -1,11 +1,20 @@
 from datetime import datetime
 
 from sqlalchemy import String, Integer, ForeignKey, Date, Float, Text, Enum
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 import enum
 from typing import List
 
 db_url = "postgresql+asyncpg://user:password@localhost:5433/main"
+
+
+engine = create_async_engine(db_url, echo=True)
+SessionLocal = async_sessionmaker(engine, expire_on_commit=False)
+
+async def get_db():
+    async with SessionLocal() as session:
+        yield session
 
 
 class Base(DeclarativeBase):
