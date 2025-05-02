@@ -22,6 +22,9 @@ const Sidebar = () => {
         <li>
           <Link to="/admin/tour-types" className="block p-2 hover:bg-gray-700">Типы туров</Link>
         </li>
+        <li>
+          <Link to="/admin/tours" className="block p-2 hover:bg-gray-700">Туры</Link>
+        </li>
       </ul>
     </div>
   );
