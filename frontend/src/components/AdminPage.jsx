@@ -16,6 +16,9 @@ const Sidebar = () => {
         <li>
           <Link to="/admin/employees" className="block p-2 hover:bg-gray-700">Сотрудники</Link>
         </li>
+        <li>
+          <Link to="/admin/hotels" className="block p-2 hover:bg-gray-700">Отели</Link>
+        </li>
       </ul>
     </div>
   );
