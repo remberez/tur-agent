@@ -11,7 +11,7 @@ const ToursAdminPage = () => {
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const data = await tourService.getTours();
+        const data = await tourService.getTours({});
         setTours(data);
       } catch (err) {
         setError('Ошибка при загрузке туров');

@@ -18,6 +18,7 @@ import TourTypeList from './components/TourTypeList';
 import TourTypeForm from './components/TourTypeForm';
 import ToursAdminPage from './components/ToursAdminPage';
 import TourForm from './components/TourForm';
+import ToursSearchPage from './components/ToursSearchPage';
 
 const App = observer(() => {
   useEffect(() => {
@@ -61,6 +62,7 @@ const App = observer(() => {
             <Route path="tours/edit/:id" element={<TourForm/>}/>
 
           </Route>
+          <Route path="search" element={<ToursSearchPage/>}/>
         </Route>
       </Routes>
   );

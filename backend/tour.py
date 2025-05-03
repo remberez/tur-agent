@@ -1,9 +1,15 @@
+from fastapi.params import Query
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Annotated
 
 from sqlalchemy.orm import selectinload
 from models import TransportEnum
+from models import Hotel
 
+
+class CityOut(BaseModel):
+    id: int
+    name: str
 
 class TourTypeOut(BaseModel):
     id: int
@@ -16,6 +22,7 @@ class HotelOut(BaseModel):
     id: int
     name: str
     stars: int
+    city: CityOut
 
     class Config:
         orm_mode = True
@@ -79,13 +86,18 @@ router = APIRouter(prefix="/tours", tags=["Туры"])
 
 
 @router.get("/", response_model=List[TourOut])
-async def get_tours(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(Tour).options(
+async def get_tours(db: AsyncSession = Depends(get_db), city_id: Annotated[int | None, Query()] = None):
+    sql = select(Tour).options(
         selectinload(Tour.tour_type),
-        selectinload(Tour.hotel),
+        selectinload(Tour.hotel).joinedload(Hotel.city),
         selectinload(Tour.dates),
         selectinload(Tour.bookings)
-    ))
+    )
+
+    if city_id is not None:
+        sql = sql.join(Tour.hotel).where(Hotel.city_id == city_id)
+
+    result = await db.execute(sql)
     return result.scalars().all()
 
 
@@ -93,7 +105,7 @@ async def get_tours(db: AsyncSession = Depends(get_db)):
 async def get_tour(tour_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Tour).where(Tour.id == tour_id).options(
         selectinload(Tour.tour_type),
-        selectinload(Tour.hotel),
+        selectinload(Tour.hotel).joinedload(Hotel.city),
         selectinload(Tour.dates),
         selectinload(Tour.bookings)
     ))

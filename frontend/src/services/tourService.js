@@ -1,10 +1,17 @@
 import api from './api';
 
 export const tourService = {
-  getTours: async () => {
-    const response = await api.get('/tours');
+  getTours: async (params) => {
+    const filteredParams = Object.fromEntries(
+      Object.entries(params).filter(([_, value]) => value != null)
+    );
+  
+    const response = await api.get(`/tours`, {
+      params: filteredParams,
+    });
     return response.data;
   },
+
   getTour: async (id) => {
     const response = await api.get(`/tours/${id}`);
     return response.data;
